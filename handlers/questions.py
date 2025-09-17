@@ -1,6 +1,6 @@
 from aiogram import Router, Bot
 from aiogram.types import Message
-from storage import PENDING
+from storage import PENDING, approve_and_save
 import logging
 
 logger = logging.getLogger(__name__)
@@ -36,6 +36,12 @@ async def process_answer(message: Message, bot: Bot):
         PENDING[pending_key]["apartment"] = message.text
         house = PENDING[pending_key]["house"]
         apartment = PENDING[pending_key]["apartment"]
+
+        if not approve_and_save(group_chat_id, user_id, pending_key):
+            await message.answer(f"❌ Такой дом и квартира уже зарегистрированы.")
+            await bot.decline_chat_join_request(group_chat_id, user_id)
+            logger.info(f"Заявка отклонена для user_id={user_id}, group_chat_id={group_chat_id}: уже зарегистрировано")
+            return
 
         await message.answer(
             f"✅ Спасибо! Вы указали:\n"

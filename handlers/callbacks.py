@@ -2,11 +2,10 @@ import logging
 from aiogram import Router, Bot, F
 from aiogram.types import CallbackQuery
 
-from storage import PENDING
+from storage import PENDING, check_user, add_user
 
 logger = logging.getLogger(__name__)
 
-# Роутер для callbacks
 router = Router()
 
 @router.callback_query(F.data)
@@ -21,6 +20,11 @@ async def handle_callback(cb: CallbackQuery, bot: Bot):
     chat_id, user_id = int(chat_id_s), int(user_id_s)
 
     if action == "approve":
+        pending_key = (chat_id, user_id)
+        if not approve_and_save(chat_id, user_id, pending_key):
+            PENDING.pop((chat_id, user_id), None)
+            await cb.answer(f"❌ Такой дом и квартира уже зарегистрированы.")
+            return
         await bot.approve_chat_join_request(chat_id, user_id)
         PENDING.pop((chat_id, user_id), None)
         await cb.message.edit_text(f"✅ Одобрено {user_id}")

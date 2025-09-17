@@ -6,6 +6,7 @@ from aiogram.filters import Command
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import BOT_TOKEN
+from storage import init_db
 from handlers import callbacks, join_request, questions
 from handlers.commands import cmd_start, cmd_pending
 
@@ -25,6 +26,7 @@ dp.include_router(join_request.router)
 dp.include_router(questions.router)
 
 async def main():
+    init_db()  # Инициализация базы данных
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
