@@ -8,7 +8,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from config import BOT_TOKEN
 from storage import init_db
 from handlers import callbacks, join_request, questions
-from handlers.commands import cmd_start, cmd_pending
+from handlers.commands import cmd_start, cmd_pending, cmd_list_requests
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -19,6 +19,7 @@ dp = Dispatcher(storage=MemoryStorage())
 # Регистрация команд
 dp.message.register(cmd_start, Command(commands=["start"]))
 dp.message.register(cmd_pending, Command(commands=["pending"]))
+dp.message.register(cmd_list_requests, Command(commands=["list_requests"]))
 
 # Подключаем маршруты
 dp.include_router(callbacks.router)

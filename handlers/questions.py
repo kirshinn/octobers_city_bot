@@ -47,12 +47,12 @@ async def process_answer(message: Message, bot: Bot):
             f"✅ Спасибо! Вы указали:\n"
             f"🏠 Дом: {house}\n"
             f"🏢 Квартира: {apartment}\n"
-            f"Я добавлю вас в группу."
+            f"В ближайшее время заявку на вступление будет рассмотрена."
         )
 
-        await bot.approve_chat_join_request(chat_id=group_chat_id, user_id=user_id)
-        PENDING.pop(pending_key)
-        logger.info(f"Заявка одобрена для user_id={user_id}, group_chat_id={group_chat_id}")
+        # await bot.approve_chat_join_request(chat_id=group_chat_id, user_id=user_id)
+        # PENDING.pop(pending_key)
+        # logger.info(f"Заявка одобрена для user_id={user_id}, group_chat_id={group_chat_id}")
     else:
         logger.info(f"Неизвестный шаг для user_id={user_id}: {step}")
         await message.answer("Произошла ошибка, попробуйте снова.")

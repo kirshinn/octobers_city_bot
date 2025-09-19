@@ -16,7 +16,7 @@ def init_db():
                   full_name TEXT,
                   username TEXT,
                   bio TEXT,
-                  added_at TEXT,
+                  created_at TEXT,
                   UNIQUE (chat_id, house, apartment))''')
     conn.commit()
 
@@ -28,7 +28,7 @@ def check_user(chat_id: int, house: str, apartment: str) -> str | None:
 
 def add_user(chat_id: int, user_id: int, house: str, apartment: str, full_name: str, username: str | None, bio: str | None):
     c = conn.cursor()
-    c.execute("INSERT INTO users (chat_id, user_id, house, apartment, full_name, username, bio, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    c.execute("INSERT INTO users (chat_id, user_id, house, apartment, full_name, username, bio, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
               (chat_id, user_id, house, apartment, full_name, username, bio, datetime.now().isoformat()))
     conn.commit()
 

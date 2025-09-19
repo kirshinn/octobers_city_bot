@@ -1,8 +1,8 @@
 import logging
+
 from aiogram import Router, Bot, F
 from aiogram.types import CallbackQuery
-
-from storage import PENDING, check_user, add_user
+from storage import PENDING, approve_and_save
 
 logger = logging.getLogger(__name__)
 
