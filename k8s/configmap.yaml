@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: octobers-city-bot-config
+  namespace: default
+data:
+  AUTO_APPROVE: "0"

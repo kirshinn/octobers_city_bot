@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: octobers-city-bot
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: octobers-city-bot
+  ports:
+  - port: 443
+    targetPort: 443
+    nodePort: 32000

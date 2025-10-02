@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: octobers-city-bot
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: octobers-city-bot
+  template:
+    metadata:
+      labels:
+        app: octobers-city-bot
+    spec:
+      containers:
+      - name: bot
+        image: python:3.12-slim
+        command: ["python", "bot.py"]
+        env:
+        - name: BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: octobers-city-bot-secret
+              key: BOT_TOKEN
+        - name: AUTO_APPROVE
+          valueFrom:
+            configMapKeyRef:
+              name: octobers-city-bot-config
+              key: AUTO_APPROVE
+        volumeMounts:
+        - name: users-db
+          mountPath: /app/users.db
+          subPath: users.db
+      volumes:
+      - name: users-db
+        hostPath:
+          path: /home/oxygen/k3s-volumes/octobers-city-bot/users.db
+          type: FileOrCreate
