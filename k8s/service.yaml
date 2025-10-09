@@ -4,10 +4,9 @@ metadata:
   name: octobers-city-bot
   namespace: default
 spec:
-  type: NodePort
+  type: LoadBalancer  # Изменить с NodePort на LoadBalancer для external 80
   selector:
     app: octobers-city-bot
   ports:
-  - port: 443
-    targetPort: 443
-    nodePort: 32000
+  - port: 80  # Service port: 80 (внутренний)
+    targetPort: 80  # Container port: 80 (бот должен слушать на 80)

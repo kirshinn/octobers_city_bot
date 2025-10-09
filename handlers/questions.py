@@ -9,6 +9,7 @@ router = Router()
 
 @router.message(lambda message: message.content_type == "text")
 async def process_answer(message: Message, bot: Bot):
+    website = "https://okto.pythonanywhere.com/ru/register/"
     user_id = message.from_user.id
     logger.info(f"Получено сообщение от user_id={user_id}, текст={message.text}")
 
@@ -61,8 +62,10 @@ async def process_answer(message: Message, bot: Bot):
             await message.answer(
                 f"✅ Спасибо! Вы указали:\n"
                 f"🏠 Дом: {house}\n"
-                f"🏢 Квартира: {apartment}\n"
-                f"В ближайшее время заявку на вступление будет рассмотрена."
+                f"🏢 Квартира: {apartment_number}\n"
+                f'Зарегистрируйтесь на <a href="{website}">портале ЖК</a>.\n'
+                f"После проверки заявка на вступление будет рассмотрена.",
+                parse_mode='HTML'
             )
 
             # await bot.approve_chat_join_request(chat_id=group_chat_id, user_id=user_id)

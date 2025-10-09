@@ -15,8 +15,10 @@ spec:
     spec:
       containers:
       - name: bot
-        image: python:3.12-slim
-        command: ["python", "bot.py"]
+        image: octobers-city-bot:latest            # локальный образ
+        imagePullPolicy: Never                     # не тянуть из registry
+        ports:                                     # Опционально, если бот использует HTTP/webhook
+        - containerPort: 80
         env:
         - name: BOT_TOKEN
           valueFrom:
