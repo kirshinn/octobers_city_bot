@@ -33,9 +33,8 @@ spec:
         volumeMounts:
         - name: users-db
           mountPath: /app/users.db
-          subPath: users.db
       volumes:
       - name: users-db
         hostPath:
-          path: /home/oxygen/k3s-volumes/octobers-city-bot/users.db
+          path: /home/k3s-volumes/octobers-city-bot/users.db
           type: FileOrCreate
