@@ -25,6 +25,11 @@ spec:
             secretKeyRef:
               name: octobers-city-bot-secret
               key: BOT_TOKEN
+        - name: DEFAULT_GROUP_ID
+          valueFrom:
+            secretKeyRef:
+              name: octobers-city-bot-secret
+              key: DEFAULT_GROUP_ID
         - name: AUTO_APPROVE
           valueFrom:
             configMapKeyRef:
