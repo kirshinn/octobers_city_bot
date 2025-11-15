@@ -50,17 +50,16 @@ async def handle_apartment_step(message: Message, pending_key: Tuple[int, int]):
     Обрабатывает шаг apartment: сохраняет номер квартиры и отправляет финальное сообщение
     """
     user_id = message.from_user.id
-    website = "https://okto.pythonanywhere.com/ru/register/"
     try:
         apartment_number = int(message.text.strip())
         house = PENDING[pending_key]["house"]
 
         # проверка валидности квартиры
-        if house == "1" and not (1 <= apartment_number <= 266):
+        if house == "5a" and not (1 <= apartment_number <= 266):
             await message.answer("Ошибка: для дома 1 номер квартиры должен быть от 1 до 266")
             logger.error(f"Неверный номер квартиры {apartment_number} для дома 1, user_id={user_id}")
             return False
-        elif house == "2" and not (1 <= apartment_number <= 290):
+        elif house == "5b" and not (1 <= apartment_number <= 290):
             await message.answer("Ошибка: для дома 2 номер квартиры должен быть от 1 до 290")
             logger.error(f"Неверный номер квартиры {apartment_number} для дома 2, user_id={user_id}")
             return False
@@ -73,7 +72,6 @@ async def handle_apartment_step(message: Message, pending_key: Tuple[int, int]):
             f"✅ Спасибо! Вы указали:\n"
             f"🏠 Дом: {house}\n"
             f"🏢 Квартира: {apartment_number}\n"
-            f'Зарегистрируйтесь на <a href="{website}">портале ЖК</a>.\n'
             f"После проверки заявка на вступление будет рассмотрена.",
             parse_mode='HTML'
         )
